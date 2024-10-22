@@ -72,7 +72,6 @@
             document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
         </script>
         <title>Citas Clinica</title>
-
     </head>
     <body>
 
