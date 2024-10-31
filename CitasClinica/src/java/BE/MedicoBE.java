@@ -4,6 +4,8 @@
  */
 package BE;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  *
  * @author George
@@ -134,6 +136,17 @@ public class MedicoBE {
      */
     public void setHorario_Disponible(String Horario_Disponible) {
         this.Horario_Disponible = Horario_Disponible;
+    }
+
+    public String GetNombreCompleto() {
+        return CMP + " - " + Nombre + " " + Apellido;
+    }
+
+    public void setDatosBasicos(HttpServletRequest request) {
+        this.setNombre(request.getParameter("nombre"));
+        this.setApellido(request.getParameter("apellido"));
+        this.setTeléfono(request.getParameter("telefono"));
+        this.setEmail(request.getParameter("email"));
     }
 
     public MedicoBE() {
