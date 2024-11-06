@@ -4,6 +4,8 @@
     Author     : gaminaya
 --%>
 
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalTime"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="BE.*"%>
 <%@page import="java.util.List"%>
@@ -17,10 +19,18 @@
 
     MedicoBL _MedicoBL = new MedicoBL();
     List<MedicoBE> medicos = _MedicoBL.ReadAll();
-    
-    List<String> horarios = new ArrayList<>();
-    
-    
+
+    List<String> horas = new ArrayList<>();
+    LocalTime horaInicio = LocalTime.of(7, 0); // 07:00
+    LocalTime horaFin = LocalTime.of(20, 0);   // 20:00
+    DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm");
+
+    while (!horaInicio.isAfter(horaFin)) {
+        horas.add(horaInicio.format(formato));  // Agregar la hora formateada a la lista
+        horaInicio = horaInicio.plusMinutes(30); // Incrementar 30 minutos
+    }
+
+
 %>
 
 <!DOCTYPE html>
@@ -41,16 +51,24 @@
                     <div class="shadow-blue border-bottom border-end border-4 border-secondary p-4">
                         <div class="row justify-content-between">
                             <p class="h4 text-secondary fw-bolder mb-3"><span class="mdi mdi-text-box-edit-outline"></span> Seleccione la fecha y horario de la cita</p>
-                            <div class="col-6 ps-4">
-                                <div class="d-flex flex-column w-75">
-                                    <md-outlined-text-field id="txt-fecha-cita" label="Fecha de cita" >
+                            <div class="col-6 ps-5">
+                                <div class="d-flex flex-column my-2 w-75">
+                                    <md-outlined-text-field class="" id="txt-fecha-cita" label="Fecha de cita" >
                                         <md-icon slot="trailing-icon"><span class="mdi mdi-calendar"></span></md-icon>
                                     </md-outlined-text-field>                            
                                     <input type="text" id="txt-fecha" class="fecha-oculta" >
                                 </div>
-                                <md-outlined-select class="my-3" name="id_especialidad" label="Especialidad">
+                                <md-outlined-select class="w-50" name="id_hora" label="Hora cita">
+                                    <md-icon slot="trailing-icon"><span class="mdi mdi-clock-outline"></span></md-icon>
+                                        <% for (String r : horas) {%>
+                                    <md-select-option  value="<%=r%>">
+                                        <div slot="headline"><%=r%></div>
+                                    </md-select-option>
+                                    <%}%>
+                                </md-outlined-select>
+                                <md-outlined-select class="my-3 w-100" name="id_especialidad" label="Especialidad">
                                     <md-icon slot="trailing-icon"><span class="mdi mdi-medication"></span></md-icon>
-                                    <% for (EspecialidadBE r : especialidades) {%>
+                                        <% for (EspecialidadBE r : especialidades) {%>
                                     <md-select-option <%=especialidad_elegida.equalsIgnoreCase(r.getID_Especialidad()) ? "selected" : ""%> value="<%=r.getID_Especialidad()%>">
                                         <div slot="headline"><%=r.getNombre_Especialidad()%></div>
                                     </md-select-option>
@@ -58,7 +76,7 @@
                                 </md-outlined-select>
                                 <md-outlined-select class="w-100" name="id_medico" label="Medicos">
                                     <md-icon slot="trailing-icon"><span class="mdi mdi-doctor"></span></md-icon>
-                                    <% for (MedicoBE r : medicos) {%>
+                                        <% for (MedicoBE r : medicos) {%>
                                     <md-select-option value="<%=r.getID_Medico()%>">
                                         <div slot="headline"><%=r.GetNombreCompleto()%> </div>                                            
                                     </md-select-option>
