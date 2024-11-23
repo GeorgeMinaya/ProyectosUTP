@@ -143,4 +143,36 @@ public class MedicoDA extends ConexionMySql implements IBaseDA<MedicoBE> {
         return resultado;
     }
 
+    public List<MedicoBE> ListarPorEspecialidad(String id) {
+        List<MedicoBE> lista = new ArrayList<>();
+
+        try {
+
+            String sql = "select m.ID_Medico, m.Nombre, m.Apellido, m.CMP, e.Nombre_Especialidad from medico m "
+                    + "inner join especialidad e on m.ID_Especialidad = e.ID_Especialidad "
+                    + "where e.ID_Especialidad = ?";
+
+            PreparedStatement pst = getCn().prepareStatement(sql);
+            pst.setString(1, id);
+
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                MedicoBE medico = new MedicoBE();
+
+                medico.setID_Medico(rs.getString("ID_Medico"));
+                medico.setNombre(rs.getString("Nombre"));
+                medico.setApellido(rs.getString("Apellido"));
+                medico.setCMP(rs.getString("CMP"));
+                medico.setNombre_Especialidad(rs.getString("Nombre_Especialidad"));
+
+                lista.add(medico);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return lista;
+    }
 }

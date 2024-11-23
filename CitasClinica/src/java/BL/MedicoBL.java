@@ -45,4 +45,8 @@ public class MedicoBL implements IBaseBL<MedicoBE>{
         return _MedicoDA.Insert(item);
     }
     
+    public List<MedicoBE> ListarPorEspecialidad(String id) {
+        return _MedicoDA.ListarPorEspecialidad(id);
+    }
+    
 }

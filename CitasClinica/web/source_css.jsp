@@ -17,6 +17,9 @@
 
     document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
 </script>
+<!-- Sweetalert -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css">
+
 <style>
     body {
         background-color: #66c8db

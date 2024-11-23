@@ -19,31 +19,47 @@
                 <div class="d-flex flex-row justify-content-center p-5">
                     <img src="img/undraw_medicine_v2.svg" alt="" class="w-75" />
                 </div>
-                <form >
+                <form id="frm-actual" action="Login.do" method="POST">
                     <div class="shadow-blue wh-login d-flex flex-column border-bottom border-end border-5 border-secondary justify-content-center align-items-center">
 
                         <h4 class="text-center text-secondary fw-bolder">CITAS DE HOSPITAL</h4>
                         <small class="mb-5 text-center text-muted">registre sus citas, elija su doctor</small>
 
-                        <md-outlined-text-field class="mt-3" label="Usuario | CMP" value="">
+                        <md-outlined-text-field class="mt-3" label="Usuario | CMP" value="" name="usuario">
                             <md-icon slot="leading-icon"><span class="mdi mdi-account"></span></md-icon>
                         </md-outlined-text-field>
 
-                        <md-outlined-text-field class="my-3" label="Contraseña" value="" type="password">
+                        <md-outlined-text-field class="my-3" label="Contraseña" value="" type="password" name="clave">
                             <md-icon slot="leading-icon"><span class="mdi mdi-key-variant"></span></md-icon>
                         </md-outlined-text-field>
 
-                        <md-fab class="my-4" aria-label="Edit" label="Ingresar" trailing-icon>
+                        <md-fab id="btn-ingresar" class="my-4" aria-label="Edit" label="Ingresar" trailing-icon >
                             <md-icon slot="icon"><span class="mdi mdi-login"></span></md-icon>
                         </md-fab>
 
-                        <md-text-button>Registrarse</md-text-button>
+                        <md-text-button type="button" href="registro_usuario.jsp">Registrarse</md-text-button>
 
                     </div>
                 </form>
             </div>
         </div>
-
         <%@include file="source_js.jsp" %>
+        <script type="text/javascript">
+
+            const btn_ingresar = document.getElementById("btn-ingresar");
+
+            btn_ingresar.addEventListener("click", () => {
+
+                const form = document.getElementById('frm-actual');
+
+                form.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                });
+
+                form.submit();
+                //Swal.fire("SweetAlert2 is working!")
+            });
+
+        </script>
     </body>
 </html>

@@ -4,7 +4,18 @@
     Author     : gaminaya
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.*"%>
+<%@page import="java.text.DateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    DateFormat formato_fecha = new SimpleDateFormat("yyyy-MM-dd");
+    Calendar c = Calendar.getInstance();
+    c.setTime(new Date());
+    c.add(Calendar.YEAR, -20);
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,7 +43,7 @@
                                     <md-icon slot="leading-icon"><span class="mdi mdi-card-account-details"></span></md-icon>
                                 </md-outlined-text-field>
                                 <div class="d-flex flex-column w-50">
-                                    <md-outlined-text-field id="txt-fecha-cumpleaños" label="Fecha cumpleaños"  value="2024-10-12" >
+                                    <md-outlined-text-field id="txt-fecha-cumpleaños" label="Fecha cumpleaños"  value="<%=formato_fecha.format(c.getTime())%>" >
                                         <md-icon slot="leading-icon"><span class="mdi mdi-cake-variant"></span></md-icon>
                                     </md-outlined-text-field>
                                     <input type="date" id="txt-fecha" class="fecha-oculta" >
@@ -61,17 +72,17 @@
                     </div>
 
                 </div>
-                <div class="row mt-4 justify-content-end">
-                    <div class="col-4 d-flex">
+                <div class="row mt-4">
+                    <div class="d-flex justify-content-between">
                         <md-fab variant="tertiary" class="" aria-label="Cancelar" label="">
                             <md-icon slot="icon"><span class="mdi mdi-cancel"></span></md-icon>
                         </md-fab>
-                        <md-fab class="ms-auto" aria-label="Grabar" label="Registrar">
+                        <md-fab class="" aria-label="Iniciar atención" label="Iniciar atención">
                             <md-icon slot="icon"><span class="mdi mdi-content-save"></span></md-icon>
                         </md-fab>
                     </div>
                 </div>
-            </form>            
+            </form>
         </div>
         <script type="text/javascript">
             const txt_fecha_cumpleaños = document.getElementById("txt-fecha-cumpleaños");
